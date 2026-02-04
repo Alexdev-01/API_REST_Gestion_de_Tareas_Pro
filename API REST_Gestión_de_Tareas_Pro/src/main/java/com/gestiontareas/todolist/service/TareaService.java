@@ -2,22 +2,23 @@ package com.gestiontareas.todolist.service;
 
 import java.util.List;
 
-import com.gestiontareas.todolist.dto.TareaRequestDTO;
-import com.gestiontareas.todolist.dto.TareaResponseDTO;
+import com.gestiontareas.todolist.dto.request.TareaRequestDTO;
+import com.gestiontareas.todolist.dto.response.TareaResponseDTO;
 import com.gestiontareas.todolist.model.EstadoTarea;
 import com.gestiontareas.todolist.model.Tarea;
 
 public interface TareaService {
 	//TareaResponseDTO crear(TareaRequestDTO dto);
 
-	Tarea crearTarea(Tarea tarea);
+	TareaResponseDTO crearTarea(TareaResponseDTO dto);
 	
-	List<Tarea> listarTareasPorUsuario(Long usuarioId);
+	List<TareaResponseDTO> listarTareasPorUsuario(Long usuarioId);
 	
-	Tarea actualizarTarea(Long id, Tarea tareaActualizada);
+	TareaResponseDTO actualizarTarea(Long id, TareaRequestDTO dto);
 	
 	void elimarTarea(Long id);
 	
-	Tarea cambiarEstado(Long id, EstadoTarea nuevoEstado);
+	TareaResponseDTO cambiarEstado(Long id, EstadoTarea nuevoEstado);
+
 	
 }
