@@ -2,6 +2,8 @@ package com.gestiontareas.todolist.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -13,10 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gestiontareas.todolist.dto.request.TareaRequestDTO;
+import com.gestiontareas.todolist.dto.response.TareaResponseDTO;
 import com.gestiontareas.todolist.model.EstadoTarea;
 import com.gestiontareas.todolist.model.Tarea;
 import com.gestiontareas.todolist.service.TareaService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 /*Este Controller:
@@ -34,32 +39,33 @@ public class TareaController {
 	
 	// Método para crear una nueva tarea
 	@PostMapping
-	public Tarea  crearTarea(@RequestBody Tarea tarea) {	// @RequestBody indica que el cuerpo de la solicitud se mapea al objeto Tarea
-		return tareaService.crearTarea(tarea);
+	public ResponseEntity<TareaResponseDTO> crearTarea(@Valid @RequestBody TareaResponseDTO dto) {	// @Valid indica que se deben validar las restricciones del DTO; @RequestBody indica que el cuerpo de la solicitud se mapea al objeto dto
+		return ResponseEntity.status(HttpStatus.CREATED).body(tareaService.crearTarea(dto));
 	}
 	
 	// Método para listar todas las tareas de un usuario específico
 	@GetMapping("/usuario/{usuarioID}")
-	public List<Tarea> listaPorUsuario(@PathVariable Long usuarioID) {	// @PathVariable indica que el valor de la variable de ruta se mapea al parámetro usuarioID
-		return tareaService.listarTareasPorUsuario(usuarioID);
+	public ResponseEntity<List<TareaResponseDTO>> listaPorUsuario(@PathVariable Long usuarioID) {	// @PathVariable indica que el valor de la variable de ruta se mapea al parámetro usuarioID
+		return  ResponseEntity.ok(tareaService.listarTareasPorUsuario(usuarioID));
 	}
 	
 	// Método para actualizar una tarea existente
 	@PutMapping("/{id}")
-	public Tarea actualizar(@PathVariable  Long id, @RequestBody Tarea tarea) {	 // @PathVariable indica que el valor de la variable de ruta se mapea al parámetro id; @RequestBody indica que el cuerpo de la solicitud se mapea al objeto Tarea
-		return tareaService.actualizarTarea(id, tarea);
+	public ResponseEntity<TareaResponseDTO> actualizarTarea(@PathVariable Long id, @Valid @RequestBody TareaRequestDTO dto) { 	// @PathVariable indica que el valor de la variable de ruta se mapea al parámetro id; @Valid indica que se deben validar las restricciones del DTO; @RequestBody indica que el cuerpo de la solicitud se mapea al objeto dto
+	    return ResponseEntity.ok(tareaService.actualizarTarea(id, dto));
 	}
 	
 	// Método para eliminar una tarea por su ID
 	@DeleteMapping("/{id}")
-	public void eliminar(@PathVariable Long id) {	// @PathVariable indica que el valor de la variable de ruta se mapea al parámetro id
+	public ResponseEntity<Void> eliminarTarea(@PathVariable Long id) {	// @PathVariable indica que el valor de la variable de ruta se mapea al parámetro id
 		tareaService.elimarTarea(id);
+		return ResponseEntity.noContent().build();
 	}
 	
 	// Método para cambiar el estado de una tarea
 	@PatchMapping("/{id}/estado")
-	public Tarea cambiarEstado(@PathVariable Long id, @RequestParam EstadoTarea estado) {	// @PathVariable indica que el valor de la variable de ruta se mapea al parámetro id; @RequestParam indica que el valor del parámetro de consulta se mapea al parámetro estado
-		return tareaService.cambiarEstado(id, estado);
+	public ResponseEntity<TareaResponseDTO> cambiarEstado(@PathVariable Long id, @RequestParam EstadoTarea estado) {	// @PathVariable indica que el valor de la variable de ruta se mapea al parámetro id; @RequestParam indica que el valor del parámetro de consulta se mapea al parámetro estado
+		return ResponseEntity.ok(tareaService.cambiarEstado(id, estado));
 	}
 	
 
