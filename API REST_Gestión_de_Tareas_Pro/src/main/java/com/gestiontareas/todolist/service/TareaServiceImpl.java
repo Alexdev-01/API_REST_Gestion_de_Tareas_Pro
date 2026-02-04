@@ -5,7 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.gestiontareas.todolist.dto.TareaResponseDTO;
+import com.gestiontareas.todolist.dto.request.TareaRequestDTO;
+import com.gestiontareas.todolist.dto.response.TareaResponseDTO;
 import com.gestiontareas.todolist.model.EstadoTarea;
 import com.gestiontareas.todolist.model.Tarea;
 import com.gestiontareas.todolist.model.Usuario;
@@ -26,38 +27,35 @@ public class TareaServiceImpl implements TareaService {
 	@Override
 	public TareaResponseDTO crearTarea(TareaResponseDTO dto) {
 		
-		Usuario usuario = usuarioRepository.findById(dto.getUsuarioId());
-		if (usuario == null) {
-			throw new RuntimeException("Usuario no encontrado con id: " + dto.getUsuarioId());
-		}
+        Usuario usuario = usuarioRepository.findById(dto.getUsuarioId())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
 		Tarea tarea = new Tarea();
-		tarea.setEstado(EstadoTarea.PENDIENTE); // Establece el estado inicial de la tarea como PENDIENTE
+		tarea.setTitulo(dto.getTitulo());	// Establece el título de la tarea
+		tarea.setDescripcion(dto.getDescripcion());	// Establece la descripción de la tarea
+		tarea.setEstado(EstadoTarea.PENDIENTE); // Establece el estado inicial como PENDIENTE
 		tarea.setFechaCreacion(LocalDateTime.now()); // Establece la fecha de creación actual
 		tarea.setUsuario(usuario);
-		tarea.setEstado(EstadoTarea.PENDIENTE);
-		tarea.setFechaCreacion(LocalDateTime.now());
-		
-		return mapToResponseDTO(tareaRepository.save(tarea));
+				
+		return mapToDTO(tareaRepository.save(tarea));
 	}
 	
-	// Método para listar todas las tareas de un usuario específico
+	// Mapea una entidad Tarea a un DTO de respuesta
 	@Override
-	public List<Tarea> listarTareasPorUsuario (Long usuarioId) {
-		return tareaRepository.findByUsuarioId(usuarioId);
+	public List<TareaResponseDTO> listarTareasPorUsuario (Long usuarioId) {
+		return tareaRepository.findByUsuarioId(usuarioId).stream().map(this::mapToDTO).toList();
 	}
 	
 	
 	// Método para actualizar una tarea existente
 	@Override
-	public Tarea actualizarTarea(Long id, Tarea tareaActualizada) {
+	public TareaResponseDTO actualizarTarea(Long id, TareaRequestDTO  dto) {
 		Tarea tarea = tareaRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Tarea no encontrada con id: " + id));
-		tarea.setTitulo(tareaActualizada.getTitulo());
-		tarea.setDescripcion(tareaActualizada.getDescripcion());
-		tarea.setEstado(tareaActualizada.getEstado());
+		tarea.setTitulo(dto.getTitulo());
+		tarea.setDescripcion(dto.getDescripcion());
 		
-		return tareaRepository.save(tarea);
+		return mapToDTO(tareaRepository.save(tarea));
 	}
 	
 	// Método para eliminar una tarea por su ID
@@ -71,14 +69,24 @@ public class TareaServiceImpl implements TareaService {
 	
 	// Método para cambiar el estado de una tarea
 	@Override
-	public Tarea cambiarEstado(Long id, EstadoTarea nuevoEstado) {
+	public TareaResponseDTO cambiarEstado(Long id, EstadoTarea nuevoEstado) {
 		Tarea tarea = tareaRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Tarea no encontrada con id: " + id));
 		tarea.setEstado(nuevoEstado);
 		
-		return tareaRepository.save(tarea);
+		return mapToDTO(tareaRepository.save(tarea));
 	}
-
-
+	
+	//Metodo Mapea una entidad Tarea a un DTO de respuesta
+	private TareaResponseDTO mapToDTO(Tarea tarea) {
+		TareaResponseDTO dto = new TareaResponseDTO();
+		dto.setId(tarea.getId());
+		dto.setTitulo(tarea.getTitulo());
+		dto.setDescripcion(tarea.getDescripcion());
+		dto.setEstado(tarea.getEstado());
+		dto.setFechaCreacion(tarea.getFechaCreacion());
+		dto.setUsuarioId(tarea.getUsuario().getId());
+		return dto;
+	}
 	
 }
