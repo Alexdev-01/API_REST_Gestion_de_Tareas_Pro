@@ -1,4 +1,9 @@
 ```text
+📁 API_REST_Gestion_de_Tareas_Pro/
+│
+├── 📄 pom.xml                           ➜ Configuración Maven (dependencias, plugins)
+├── 📄 GESTION_TAREAS_BD.sql            ➜ Script SQL para crear base de datos
+│
 ├── 📁 src/main/java/
 │   └── 📁 com.gestiontareas.todolist/
 │       │
@@ -36,14 +41,6 @@
 │           └── 📄 TareaServiceImpl.java               ➜ Implementación del servicio
 │
 ├── 📁 src/main/resources/
-│   └── 📄 application.yml                             ➜ Configuración de Spring Boot
-│                                                          (BD, JPA, servidor)
-│
-├── 📁 src/test/java/                                  ➜ Tests unitarios e integración
-│   └── 📁 resources/
-│
-└── 📁 target/                                         ➜ Archivos compilados (.class)
-    ├── 📁 classes/
-    ├── 📁 generated-sources/
-    ├── 📁 generated-test-sources/
-    └── 📁 test-classes/
+    └── 📄 application.yml                             ➜ Configuración de Spring Boot
+                                                           (BD, JPA, servidor)
+
