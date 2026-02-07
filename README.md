@@ -104,7 +104,7 @@ Utiliza **DTOs** para garantizar un contrato estable y seguro.
 ```
 ---
 
-##🛠️ Requisitos Previos
+## 🛠️ Requisitos Previos
 
 Java JDK 17 o superior
 - MySQL
