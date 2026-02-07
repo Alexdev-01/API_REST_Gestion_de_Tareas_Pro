@@ -51,6 +51,7 @@ Esta API permite gestionar un sistema de tareas (To-Do List) de forma profesiona
 
 El proyecto sigue una **arquitectura en capas (Layered Architecture)**, desacoplando la API de las entidades de dominio mediante el uso de DTOs.
 
+```
 📦 com.gestiontareas.todolist
 │
 ├── 📁 controller/ → Capa de presentación (endpoints REST)
@@ -60,7 +61,7 @@ El proyecto sigue una **arquitectura en capas (Layered Architecture)**, desacopl
 ├── 📁 dto/ → DTOs (Request / Response)
 ├── 📁 exception/ → Manejo de excepciones
 └── 📁 config/ → Configuraciones
-
+```
 
 ---
 
