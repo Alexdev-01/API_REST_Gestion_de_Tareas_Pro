@@ -126,9 +126,10 @@ mvn spring-boot:run
 La API estará disponible en:
 http://localhost:8080
 
+---
 
-##📊 Modelo de Datos
-###Entidad Tarea
+## 📊 Modelo de Datos
+### Entidad Tarea
 
 - id
 - titulo
@@ -137,13 +138,14 @@ http://localhost:8080
 - fechaCreacion
 - usuario
 
-###Entidad Usuario
+### Entidad Usuario
 - id
 - nombre
 - email
 
+---
 
-##👨‍💻 Autor
+## 👨‍💻 Autor
 
 Alejandro C.
 Proyecto de Portfolio – Spring Boot + MySQL
