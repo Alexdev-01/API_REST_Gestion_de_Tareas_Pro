@@ -106,7 +106,7 @@ Utiliza **DTOs** para garantizar un contrato estable y seguro.
 
 ## 🛠️ Requisitos Previos
 
-Java JDK 17 o superior
+Java JDK
 - MySQL
 - Maven (opcional si se usa el wrapper)
 - IDE recomendado: IntelliJ IDEA, Eclipse o Spring Tools
@@ -131,7 +131,7 @@ http://localhost:8080
 ---
 
 ## 📊 Modelo de Datos
-### **Entidad Tarea**
+### <u>Entidad Tarea</u>
 
 - id
 - titulo
