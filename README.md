@@ -116,12 +116,14 @@ Java JDK 17 o superior
 
 ⚙️ Configuración del Proyecto
 Crear la base de datos
-
+```
 CREATE DATABASE gestion_tareas;
-
+```
 
 Ejecutar la aplicación
+```
 mvn spring-boot:run
+```
 
 La API estará disponible en:
 http://localhost:8080
@@ -129,7 +131,7 @@ http://localhost:8080
 ---
 
 ## 📊 Modelo de Datos
-### Entidad Tarea
+### **Entidad Tarea**
 
 - id
 - titulo
@@ -138,7 +140,7 @@ http://localhost:8080
 - fechaCreacion
 - usuario
 
-### Entidad Usuario
+### **Entidad Usuario**
 - id
 - nombre
 - email
