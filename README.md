@@ -91,7 +91,8 @@ Utiliza **DTOs** para garantizar un contrato estable y seguro.
 }
 
 ```
-TareaResponseDTO
+### TareaResponseDTO
+```json
 {
   "id": 1,
   "titulo": "Completar documentación",
@@ -100,7 +101,7 @@ TareaResponseDTO
   "fechaCreacion": "2026-02-04T14:30:00",
   "usuarioId": 1
 }
-
+```
 ---
 
 ##🛠️ Requisitos Previos
